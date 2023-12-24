@@ -113,8 +113,5 @@ TW_FRAMERATE := 60
 TW_Y_OFFSET := 70
 TW_H_OFFSET := -70
 TW_HAS_DOWNLOAD_MODE := true​
-TWRP_INCLUDE_LOGCAT := true[/HEADING]
-[HEADING=2]TARGET_USES_LOGD := true
-#Properties
 TW_OVERRIDE_SYSTEM_PROPS := \
     "ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental"
