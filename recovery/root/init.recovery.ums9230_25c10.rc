@@ -1,2 +1,14 @@
 #add for board init.rc for recovery mode
 import /init.recovery.common.rc
+# Fix flashlight on orangefox
+on property:ro.orangefox.boot=1
+    mkdir /tmp/flashlight
+    write /tmp/flashlight/max_brightness "1"
+    symlink /sys/devices/virtual/camera/flash/rear_flash /tmp/flashlight/brightness
+
+service linkblobs /system/bin/linkblobs.sh
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
