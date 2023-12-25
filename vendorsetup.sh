@@ -11,3 +11,4 @@ add_lunch_combo twrp_a03-eng
 
 export OF_MAINTAINER="gauravv.x1"
 export OF_MAINTAINER_AVATAR="maintancer.png"
+export OF_FL_PATH1="/tmp/flashlight"
