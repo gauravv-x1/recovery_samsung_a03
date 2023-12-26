@@ -13,3 +13,4 @@ export OF_MAINTAINER="gauravv.x1"
 export OF_MAINTAINER_AVATAR="maintainer.png"
 export OF_FL_PATH1="/tmp/flashlight"
 export OF_FL_PATH2=""
+export OF_HIDE_NOTCH := 1
