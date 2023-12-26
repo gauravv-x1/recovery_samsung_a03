@@ -52,7 +52,6 @@
 /system_ext_image          emmc      /dev/block/mapper/system_ext         flags=backup=0;flashimg=1;display="System_ext Image"
 /vendor_image              emmc      /dev/block/mapper/vendor             flags=backup=0;flashimg=1;display="Vendor Image"
 /product_image             emmc      /dev/block/mapper/product            flags=backup=0;flashimg=1;display="Product Image"
-/super_img                 emmc      /dev/block/by-name/super             flags=backup=0;flashimg=1;display="Super Image"
 # Removable storage
 /external_sd         vfat      /dev/block/mmcblk1p1    /dev/block/mmcblk1       flags=storage;wipeingui;removable
 /usb-otg             auto      /dev/block/sda1    /dev/block/sda                flags=display="USB-OTG";storage;wipeingui;removable
