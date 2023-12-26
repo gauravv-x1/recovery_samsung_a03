@@ -1,1 +1,0 @@
-OF_HIDE_NOTCH := 1
