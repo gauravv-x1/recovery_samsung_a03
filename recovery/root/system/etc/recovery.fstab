@@ -1,57 +1,32 @@
-/spl                 emmc      /dev/block/mmcblk0boot0              flags=display=spl
-/spl_bk              emmc      /dev/block/mmcblk0boot1              flags=display=spl_bk
-/uboot               emmc      /dev/block/by-name/uboot             flags=display=uboot
-/sml                 emmc      /dev/block/by-name/sml               flags=display=sml
-/tos                 emmc      /dev/block/by-name/trustos           flags=display=tos
-/teecfg              emmc      /dev/block/by-name/teecfg            flags=display=teecfg
-/vbmeta              emmc      /dev/block/by-name/vbmeta            flags=display=vbmeta
-/vbmeta_system       emmc      /dev/block/by-name/vbmeta_system     flags=display=vbmeta_system
-/vbmeta_vendor       emmc      /dev/block/by-name/vbmeta_vendor     flags=display=vbmeta_vendor
-/dtbo                emmc      /dev/block/by-name/dtbo              flags=display=dtbo
-/ltedsp              emmc      /dev/block/by-name/l_ldsp            flags=display=ltedsp
-/ltegdsp             emmc      /dev/block/by-name/l_gdsp            flags=display=ltegdsp
-/lteagdsp            emmc      /dev/block/by-name/l_agdsp           flags=display=lteagdsp
-/ltecdsp             emmc      /dev/block/by-name/l_cdsp            flags=display=ltecdsp
-/ltemodem            emmc      /dev/block/by-name/l_modem           flags=display=ltemodem
-/ltefixnv1           emmc      /dev/block/by-name/l_fixnv1          flags=display=ltefixnv1
-/ltefixnv2           emmc      /dev/block/by-name/l_fixnv2          flags=display=ltefixnv2
-/ltedeltanv          emmc      /dev/block/by-name/l_deltanv         flags=display=ltedeltanv
-/wcnmodem            emmc      /dev/block/by-name/wcnmodem          flags=display=wcnmodem
-/gnssmodem           emmc      /dev/block/by-name/gnssmodem         flags=display=gnssmodem
-/pmsys               emmc      /dev/block/by-name/pm_sys            flags=display=pmsys
-/misc                emmc      /dev/block/by-name/misc              flags=display=misc
-/boot                emmc      /dev/block/by-name/boot              flags=display=boot
-/recovery            emmc      /dev/block/by-name/recovery          flags=display=recovery
-/persist             emmc      /dev/block/by-name/persist           flags=display=persist
-/logo                emmc      /dev/block/by-name/logo              flags=display=logo
-/fbootlogo           emmc      /dev/block/by-name/fbootlogo         flags=display=fbootlogo
-# /system              ext4      system                               flags=display=system;logical
-/system              ext4      /dev/block/mapper/system                               flags=display=system;backup=1;wipeingui
-# /system_ext          ext4      system_ext                           flags=display=system_ext;logical
-/system_ext          ext4      /dev/block/mapper/system_ext                               flags=display=system_ext;backup=1;wipeingui
-# /vendor              ext4      vendor                               flags=display=vendor;logical
-/vendor              ext4      /dev/block/mapper/vendor                               flags=display=vendor;backup=1;wipeingui
-# /product             ext4      product                              flags=display=product;logical
-/product             ext4      /dev/block/mapper/product                              flags=display=product;backup=1;wipeingui
-/metadata            ext4      /dev/block/by-name/metadata          flags=display=metadata
-/socko               ext4      /dev/block/by-name/socko             flags=display=socko
-/odmko               ext4      /dev/block/by-name/odmko             flags=display=odmko
-/cache               ext4      /dev/block/by-name/cache             flags=display=cache
-/mnt/vendor          ext4      /dev/block/by-name/prodnv            flags=display=vendor
-/data                f2fs      /dev/block/by-name/userdata          flags=display=data
-/sdcard              sdfat     /dev/block/mmcblk1p1                 flags=display=sdcard
-/efs                 ext4      /dev/block/by-name/sec_efs           flags=display=efs
-/sec_efs             ext4      /dev/block/by-name/sec_efs           flags=display=sec_efs
-/prism               ext4      /dev/block/by-name/prism             flags=display=prism
-/optics              ext4      /dev/block/by-name/optics            flags=display=optics
-/deltanv             emmc      /dev/block/by-name/l_deltanv         flags=display=deltanv
-/nvitem              emmc      /dev/block/by-name/l_fixnv2          flags=display=nvitem
-/qogirl6_m3l_cm4     emmc      /dev/block/by-name/pm_sys            flags=display=qogirl6_m3l_cm4
-# Added By gauravv.x1
-/system_image              emmc      /dev/block/mapper/system             flags=backup=0;flashimg=1;display="System Image"
-/system_ext_image          emmc      /dev/block/mapper/system_ext         flags=backup=0;flashimg=1;display="System_ext Image"
-/vendor_image              emmc      /dev/block/mapper/vendor             flags=backup=0;flashimg=1;display="Vendor Image"
-/product_image             emmc      /dev/block/mapper/product            flags=backup=0;flashimg=1;display="Product Image"
+#Added by gauravv.x1
+
+/cache  ext4    /dev/block/by-name/cache    flags=display=cache;wipeingui
+
+
+/system_image   emmc    /dev/block/mapper/system    flags=backup=0;flashimg=1;display="System Image"
+/system_ext_image  emmc    /dev/block/mapper/system_ext   flags=backup=0;flashimg=1;display="System_ext Image"
+/product_image  emmc    /dev/block/mapper/product   flags=backup=0;flashimg=1;display="Product"
+/vendor_image   emmc    /dev/block/mapper/vendor    flags=backup=0;flashimg=1;display="Vendor Image"
+/system     ext4    /dev/block/mapper/system   flags=display="System";backup=1;wipeingui
+/system_ext    ext4    /dev/block/mapper/system_ext  flags=display="System_ext";backup=1;wipeingui
+/product    ext4    /dev/block/mapper/product  flags=display="Product";backup=1;wipeingui
+/vendor     ext4    /dev/block/mapper/vendor   flags=display="Vendor";backup=1;wipeingui
+
+# AVOID USING /sdcard and sdfat, its not supported...
+
+# Separate
+# These will be separated due to some functions
+# DO NOT PLAY AROUND WITH wipeingui
+
+/boot   emmc    /dev/block/by-name/boot flags=display=boot
+/recovery   emmc    /dev/block/by-name/recovery flags=display=recovery
+/metadata   ext4    /dev/block/by-name/metadata flags=display=metadata
+/data   f2fs    /dev/block/by-name/userdata flags=display="Device Data";wipeingui
+/efs    ext4    /dev/block/by-name/sec_efs  flags=display=efs
+/sec_efs    ext4    /dev/block/by-name/sec_efs  flags=display=sec_efs
+/prism  ext4    /dev/block/by-name/prism    flags=display=prism
+/optics ext4    /dev/block/by-name/optics   flags=display=optics
+
 # Removable storage
 /external_sd         vfat      /dev/block/mmcblk1p1    /dev/block/mmcblk1       flags=storage;wipeingui;removable
 /usb-otg             auto      /dev/block/sda1    /dev/block/sda                flags=display="USB-OTG";storage;wipeingui;removable
