@@ -121,8 +121,8 @@ TW_DEVICE_VERSION := gauravv_x1
 # TWRP specific build flags
 TW_FRAMERATE := 60
 TW_MAX_BRIGHTNESS := 488
-TW_Y_OFFSET := 70
-TW_H_OFFSET := -70
+TW_Y_OFFSET := 60
+TW_H_OFFSET := -60
 TW_HAS_DOWNLOAD_MODE := true​
 TW_OVERRIDE_SYSTEM_PROPS := \
     "ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental"
