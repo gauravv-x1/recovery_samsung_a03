@@ -1,47 +1,27 @@
-# Copyright (c) 2011, Code Aurora Forum. All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are
-# met:
-#     * Redistributions of source code must retain the above copyright
-#       notice, this list of conditions and the following disclaimer.
-#     * Redistributions in binary form must reproduce the above
-#       copyright notice, this list of conditions and the following
-#       disclaimer in the documentation and/or other materials provided
-#       with the distribution.
-#     * Neither the name of Code Aurora Forum, Inc. nor the names of its
-#       contributors may be used to endorse or promote products derived
-#       from this software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
-# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
-# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
-# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
-# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
-# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+# mount point     fstype  device                      device2               flags
+# Logical partitions
+/system           ext4    /dev/block/mapper/system                          wait,logical,flags=backup=1;wipeingui;display="System";
+/product          ext4    /dev/block/mapper/product                         wait,logical,flags=backup=1;wipeingui;display="Product";
+/vendor           ext4    /dev/block/mapper/vendor                          wait,logical,flags=backup=1;wipeingui;display="Vendor";
+/system_ext       ext4    /dev/block/mapper/system_ext                      wait,logical,flags=backup=1;wipeingui;display="system_ext";
 
-#<mnt_point>    <type>  <src>                                   <mnt_flags and options>
-/boot           emmc    /dev/block/by-name/boot                 flags=backup=1;flashimg;display="Boot"
-/recovery       emmc    /dev/block/by-name/recovery             flags=backup=1;display="Recovery"
-/system_root   f2fs /dev/block/mapper/system  flags=backup=1;wipeingui;display="System"
-/system_root   ext4 /dev/block/mapper/system  flags=backup=1;wipeingui;display="System"
-/system_image  emmc /dev/block/mapper/system  flags=backup=1;flashimg;display="System Image"
-/system_ext        ext4 /dev/block/mapper/system_ext  flags=backup=1;wipeingui;display="System_ext"
-/system_ext        f2fs /dev/block/mapper/system_ext  flags=backup=1;wipeingui;display="System_ext"
-/system_ext_image  emmc /dev/block/mapper/system_ext  flags=backup=1;flashimg;display="System_ext Image"
-/product       ext4 /dev/block/mapper/product  flags=backup=1;wipeingui;display="Product"
-/product       f2fs /dev/block/mapper/product  flags=backup=1;wipeingui;display="Product"
-/product_image emmc /dev/block/mapper/product  flags=backup=1;flashimg;display="Product Image"
-/vendor        ext4 /dev/block/mapper/vendor  flags=backup=1;wipeingui;display="Vendor"
-/vendor        f2fs /dev/block/mapper/vendor  flags=backup=1;wipeingui;display="Vendor"
-/vendor_image  emmc /dev/block/mapper/vendor  flags=backup=1;flashimg;display="Vendor Image"
-/metadata       ext4    /dev/block/by-name/metadata             flags=display="Metadata"
-/data           f2fs    /dev/block/by-name/userdata
+# Linked partitions
+/system_image     emmc    /dev/block/mapper/system                          flags=backup=1;flashimg;display="System Image"
+/vendor_image     emmc    /dev/block/mapper/vendor                          flags=backup=1;flashimg;display="Vendor Image"
+/product_image    emmc    /dev/block/mapper/product                         flags=backup=1;flashimg;display="Product Image"
+/system_ext_image emmc    /dev/block/mapper/system_ext                      flags=backup=1;flashimg;display="system_ext Image"
+
+# Removable storage
+/external_sd      auto    /dev/block/mmcblk1p1        /dev/block/mmcblk1    flags=storage;wipeingui;removable;display="External SDcard";
+/usb-otg          auto    /dev/block/sda1             /dev/block/sda        flags=display="USB-OTG";storage;wipeingui;removable;
+
+# Common physical partitions
+/boot                emmc      /dev/block/by-name/boot              flags=display=boot
+/recovery            emmc      /dev/block/by-name/recovery          flags=display=recovery
+/persist             emmc      /dev/block/by-name/persist           flags=display=persist
+/data             f2fs    /dev/block/by-name/userdata                       flags=backup=1;display="Userdata";length=-20480;wipeingui
+/socko               ext4      /dev/block/by-name/socko             flags=display=socko
+/odmko               ext4      /dev/block/by-name/odmko             flags=display=odmko
 /cache          ext4    /dev/block/by-name/cache                flags=display="Cache"
 /efs            ext4    /dev/block/by-name/sec_efs                  flags=display="Efs"
 /sec_efs        ext4    /dev/block/by-name/sec_efs              flags=display="Sec Efs"
@@ -52,7 +32,3 @@
 /optics_image   emmc    /dev/block/by-name/optics               flags=display="Optics Image"
 /vbmeta_system  emmc    /dev/block/by-name/vbmeta               flags=display="Vbmeta System"
 /vbmeta_vendor emmc    /dev/block/by-name/vbmeta_vendor       flags=display="Vbmeta Vendor"
-
-# Removable storage
-/external_sd         vfat      /dev/block/mmcblk1p1    /dev/block/mmcblk1       flags=storage;wipeingui;removable
-/usb-otg             auto      /dev/block/sda1    /dev/block/sda                flags=display="USB-OTG";storage;wipeingui;removable
