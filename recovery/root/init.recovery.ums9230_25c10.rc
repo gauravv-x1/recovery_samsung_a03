@@ -1,7 +1,29 @@
-#add for board init.rc for recovery mode
-import /init.recovery.common.rc
-# Fix flashlight on orangefox
-on property:ro.orangefox.boot=1
-    mkdir /tmp/flashlight
-    write /tmp/flashlight/max_brightness "1"
-    symlink /sys/devices/virtual/camera/flash/rear_flash /tmp/flashlight/brightness
+on init    
+    # unlink /efs > /mnt/vendor/efs
+    rm /efs
+    mkdir /efs
+    mkdir /sec_efs
+
+    chown system root /proc/cpwcn/wdtirq
+    chmod 766 /proc/cpwcn/wdtirq
+
+on late-init
+    setprop ro.debuggable 1
+    setprop sys.usb.configfs 1
+
+#al: load necessary kernel modules in socko and odmko
+on post-fs
+    # from vendor/etc/init/init.md.rc
+    insmod ${ro.vendor.ko.mount.point}/socko/focaltech_ft8756_spi_ts.ko
+    insmod ${ro.vendor.ko.mount.point}/socko/Vtxs200x.ko
+    insmod ${ro.vendor.ko.mount.point}/socko/akm4377.ko
+    insmod ${ro.vendor.ko.mount.point}/socko/mali_kbase.ko
+    insmod ${ro.vendor.ko.mount.point}/socko/sprdwl_ng.ko
+    
+    chown system system sys/class/sec/tsp/input/enabled
+    chmod 664 sys/class/sec/tsp/input/enabled
+    
+# from vendor/etc/init/vendor.samsung.hardware.sysinput@1.1-service.rc
+on early-boot
+    chown system system /dev/tspio
+    chown system system /sys/class/sec/tsp/enable
