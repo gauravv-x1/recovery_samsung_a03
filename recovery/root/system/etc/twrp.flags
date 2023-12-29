@@ -1,32 +1,35 @@
 # mount point     fstype  device                      device2               flags
-# Logical partitions
-/system           ext4    /dev/block/mapper/system                          wait,logical,flags=backup=1;display="System";
-/product          ext4    /dev/block/mapper/product                         wait,logical,flags=backup=1;display="Product";
-/vendor           ext4    /dev/block/mapper/vendor                          wait,logical,flags=backup=1;display="Vendor";
-/system_ext       ext4    /dev/block/mapper/system_ext                      wait,logical,flags=backup=1;display="System_ext";
+# Dynamic partitions
+/system           ext4    /dev/block/mapper/system                          wait,logical,first_stage_mount,flags=backup=1;display="System"
+/system_ext       ext4    /dev/block/mapper/system_ext                      wait,logical,first_stage_mount,flags=backup=1;display="System_ext"
+/vendor           ext4    /dev/block/mapper/vendor                          wait,logical,first_stage_mount,flags=backup=1;display="Vendor"
+/product          ext4    /dev/block/mapper/product                         wait,logical,first_stage_mount,flags=backup=1;display="Product"
 
 # Linked partitions
-/system_image     emmc    /dev/block/mapper/system                          flags=backup=1;flashimg;display="System Image";wipeingui;
-/vendor_image     emmc    /dev/block/mapper/vendor                          flags=backup=1;flashimg;display="Vendor Image";wipeingui;
-/product_image    emmc    /dev/block/mapper/product                         flags=backup=1;flashimg;display="Product Image";wipeingui;
-/system_ext_image emmc    /dev/block/mapper/system_ext                      flags=backup=1;flashimg;display="System_ext Image";wipeingui;
+/system_image     emmc    /dev/block/mapper/system                          flags=backup=1;flashimg;display="System Image";wipeingui
+/system_ext_image emmc    /dev/block/mapper/system_ext                      flags=backup=1;flashimg;display="System_ext Image";wipeingui
+/vendor_image     emmc    /dev/block/mapper/vendor                          flags=backup=1;flashimg;display="Vendor Image";wipeingui
+/product_image    emmc    /dev/block/mapper/product                         flags=backup=1;flashimg;display="Product Image";wipeingui
 
 # Common physical partitions
-/boot                emmc      /dev/block/by-name/boot              flags=display=boot;
-/recovery            emmc      /dev/block/by-name/recovery          flags=display=recovery;
-/persist             emmc      /dev/block/by-name/persist           flags=display=persist;
-/data             f2fs    /dev/block/by-name/userdata                       flags=backup=1;display="Userdata";length=-20480;wipeingui;
-/cache          ext4    /dev/block/by-name/cache                flags=display="Cache"
-/efs            ext4    /dev/block/by-name/sec_efs                  flags=display="Efs";
-/sec_efs        ext4    /dev/block/by-name/sec_efs              flags=display="Sec Efs";
-/misc           emmc    /dev/block/by-name/misc
-/dtbo           emmc    /dev/block/by-name/dtbo                 flags=display="DTBO Image";
-/prism          ext4    /dev/block/by-name/prism                flags=display="Prism";
-/optics         ext4    /dev/block/by-name/optics               flags=display="Optics";
-/optics_image   emmc    /dev/block/by-name/optics               flags=display="Optics Image";
-/vbmeta_system  emmc    /dev/block/by-name/vbmeta               flags=display="Vbmeta System";
-/vbmeta_vendor emmc    /dev/block/by-name/vbmeta_vendor       flags=display="Vbmeta Vendor";
+/misc                emmc      /dev/block/by-name/misc              flags=display=misc
+/boot                emmc      /dev/block/by-name/boot              flags=display=boot
+/recovery            emmc      /dev/block/by-name/recovery          flags=display=recovery
+/persist             emmc      /dev/block/by-name/persist           flags=display=persist
+/logo                emmc      /dev/block/by-name/logo              flags=display=logo
+/fbootlogo           emmc      /dev/block/by-name/fbootlogo         flags=display=fbootlogo
+/metadata            ext4      /dev/block/by-name/metadata          flags=display=Metadata;wipeingui
+/data                f2fs      /dev/block/by-name/userdata          flags=backup=1;display="Userdata";length=-20480;wipeingui
+/efs                 ext4      /dev/block/by-name/sec_efs           flags=display=efs
+/sec_efs             ext4      /dev/block/by-name/sec_efs           flags=display=sec_efs
+/cache               ext4      /dev/block/by-name/cache             flags=display=cache
+
+
+# a03
+/socko               ext4      /dev/block/by-name/socko             flags=display=socko
+/odmko               ext4      /dev/block/by-name/odmko             flags=display=odmko
+
 
 # Removable storage
-/external_sd      auto    /dev/block/mmcblk1p1        /dev/block/mmcblk1    flags=storage;wipeingui;removable;display="External SDcard";
-/usb-otg          auto    /dev/block/sda1             /dev/block/sda        flags=display="USB-OTG";storage;wipeingui;removable;
+/external_sd      vfat    /dev/block/mmcblk1p1        /dev/block/mmcblk1    flags=storage;wipeingui;removable;display="External SDcard"
+/usb-otg          auto    /dev/block/sda1             /dev/block/sda        flags=display="USB-OTG";storage;wipeingui;removable
