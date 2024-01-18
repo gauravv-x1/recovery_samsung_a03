@@ -1,0 +1,14 @@
+#
+# Copyright (C) 2024 The Android Open Source Project
+# Copyright (C) 2024 The Gauravv Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+/system		ext4	/dev/block/mapper/system		flags=display="System";backup=1;wipeingui
+/vendor		ext4	/dev/block/mapper/vendor		flags=display="Vendor";wipeingui;backup=1
+/product	ext4	/dev/block/mapper/product		flags=display="Product";backup=1;flashimg=1;wipeingui
+/system_ext	ext4	/dev/block/mapper/system_ext		flags=display="System_EXT";backup=1;wipeingui
+/data		f2fs	/dev/block/by-name/userdata/data	flags=display=" Data";wipeingui
+
+/dev/block/by-name/metadata	/metadata	ext4	noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic,sync	wait,formattable,first_stage_mount,check
