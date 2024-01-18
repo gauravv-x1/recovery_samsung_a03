@@ -1,10 +1,30 @@
+# from vendor/etc/init/vendor.samsung.hardware.sysinput@1.2-service.rc
+on early-boot
+    chown system system /dev/tspio
+    chown system system /sys/class/sec/tsp/enable
+    chown system system /dev/tsp_data
+
 on init
-    write /proc/sys/kernel/hung_task_timeout_secs 0
+    # from recovery: init.recovery.samsung.rc
+    # unlink /efs > /mnt/vendor/efs
+    rm /efs
+    mkdir /efs
+    mkdir /sec_efs
 
-on late-init
-    setprop ro.debuggable 1
-    setprop service.adb.root 1
-    setprop sys.usb.configfs 1
-    setprop sys.usb.config adb
+    chown system root /proc/cpwcn/wdtirq
+    chmod 766 /proc/cpwcn/wdtirq
 
-on boot
+on post-fs
+    # from vendor/etc/init/init.md.rc
+    insmod ${ro.vendor.ko.mount.point}/socko/focaltech_ft8756_spi_ts.ko
+    insmod ${ro.vendor.ko.mount.point}/socko/Vtxs200x.ko
+    insmod ${ro.vendor.ko.mount.point}/socko/akm4377.ko
+
+    chown system system sys/class/sec/tsp/input/enabled
+    chmod 664 sys/class/sec/tsp/input/enabled
+
+on post-fs-data
+    chown system system /proc/tp_info
+    chown system system /sys/class/sec/tsp/cmd
+    chown system system /sys/class/sec/tsp/input/enabled
+ 
