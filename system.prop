@@ -8,3 +8,4 @@ ro.boot.boot_devices=soc/soc:ap-apb/201d0000.sdio
 ro.vendor.ko.mount.point=/
 persist.service.adb.root=1
 ro.product.first_api_level=30
+ro.vendor.rc=/vendor/etc/init/hw/

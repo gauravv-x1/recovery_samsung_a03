@@ -1,40 +1,25 @@
-#
-# Copyright (C) 2024 The Android Open Source Project
-# Copyright (C) 2024 The Gauravv Project
-#
-# SPDX-License-Identifier: Apache-2.0
-#
-# mount point     fstype	device                          flags
-# Logical Partitons
-/product           ext4		/dev/block/mapper/product	flags=backup=1;wipeingui;display="Product"
-/product           f2fs		/dev/block/mapper/product	flags=backup=0;wipeingui;display="Product"
-/product_image     emmc		/dev/block/mapper/product	flags=backup=0;flashimg;display="Product Image"
-/system_root       f2fs		/dev/block/mapper/system	flags=backup=0;wipeingui;display="System"
-/system_root       ext4		/dev/block/mapper/system	flags=backup=1;wipeingui;display="System"
-/system_image      emmc		/dev/block/mapper/system	flags=backup=0;flashimg;display="System Image"
-/vendor            f2fs		/dev/block/mapper/vendor	flags=backup=0;wipeingui;display="Vendor"
-/vendor            ext4		/dev/block/mapper/vendor	flags=backup=1;wipeingui;display="Vendor"
-/vendor_image      emmc		/dev/block/mapper/vendor	flags=backup=0;flashimg;display="Vendor Image"
-/system_ext        f2fs		/dev/block/mapper/system	flags=backup=0;wipeingui;display="System_EXT"
-/system_ext_image  emmc		/dev/block/mapper/system	flags=backup=0;flashimg;display="System_EXT Image"
-/system_ext        ext4		/dev/block/mapper/system_ext	flags=backup=1;wipeingui;display="System_EXT"
-# Common Physical Partitions
-/boot                emmc      /dev/block/by-name/boot              flags=display=boot
-/recovery            emmc      /dev/block/by-name/recovery          flags=display=Recovery;backup=1
-/persist             emmc      /dev/block/by-name/persist           flags=display=persist
-/metadata            ext4      /dev/block/by-name/metadata          flags=display=metadata
-/socko               ext4      /dev/block/by-name/socko             flags=display=socko
-/odmko               ext4      /dev/block/by-name/odmko             flags=display=odmko
-/cache               ext4      /dev/block/by-name/cache             flags=display=cache
-/vbmeta              emmc      /dev/block/by-name/vbmeta            flags=display=vbmeta
-/vbmeta_system       emmc      /dev/block/by-name/vbmeta_system     flags=display=vbmeta_system
-/vbmeta_vendor       emmc      /dev/block/by-name/vbmeta_vendor     flags=display=vbmeta_vendor
-/dtbo                emmc      /dev/block/by-name/dtbo              flags=display=dtbo
-/efs                 ext4      /dev/block/by-name/sec_efs           flags=display=efs
-/sec_efs             ext4      /dev/block/by-name/sec_efs           flags=display=sec_efs
-/prism               ext4      /dev/block/by-name/prism             flags=display=prism
-/optics              ext4      /dev/block/by-name/optics            flags=display=optics
+# mount point   fstype              device                      device2                         flags
+# Dynamic Partitions
+/system                ext4                /dev/block/mapper/system                                    wait,logical,first_stage_mount,flags=backup=1;display="System";
+/vendor                ext4                /dev/block/mapper/vendor                                    wait,logical,first_stage_mount,flags=backup=1;display="Vendor";
+/system_ext            ext4                /dev/block/mapper/system_ext                                       wait,logical,first_stage_mount,flags=backup=1;display="System_EXT";
+/product               ext4                /dev/block/mapper/product                                   wait,logical,first_stage_mount,flags=backup=1;display="Product";
+
+/system_image          emmc                /dev/block/mapper/system                                    flags=backup=1;display="System Image";flashimg=1;wipeingui;
+/vendor_image          emmc                /dev/block/mapper/vendor                                    flags=backup=1;display="Vendor Image";flashimg=1;wipeingui;
+/system_ext_image      emmc                /dev/block/mapper/system_ext                                       flags=backup=1;display="System_EXT Image";flashimg=1;wipeingui;
+/product_image         emmc                /dev/block/mapper/product                                   flags=backup=1;display="Product Image";flashimg=1;wipeingui;
+
+# Physical partitions
+/metadata       ext4                /dev/block/platform/bootdevice/by-name/md_udc               flags=backup=1;display=Metadata;
+/boot           emmc                /dev/block/platform/bootdevice/by-name/boot                 flags=backup=1;flashimg=1;display="Boot";
+/recovery       emmc                /dev/block/platform/bootdevice/by-name/recovery             flags=backup=1;flashimg=1;display="Recovery";
+/data           f2fs                /dev/block/platform/bootdevice/by-name/userdata             flags=length=-16384;
+/cache          ext4                /dev/block/platform/bootdevice/by-name/cache                flags=backup=0;display="Cache";
+/dtbo           emmc                /dev/block/platform/bootdevice/by-name/dtbo                 flags=backup=1;flashimg=1;display="Dtbo";
+/misc           emmc                /dev/block/platform/bootdevice/by-name/misc                 flags=backup=0;flashimg=1;display="Misc";
+/efs            ext4                /dev/block/platform/bootdevice/by-name/sec_efs              flags=backup=0;display="EFS";
 
 # Removable storage
 /external_sd      auto    /dev/block/mmcblk1p1        /dev/block/mmcblk1    flags=storage;wipeingui;removable;display="External SDcard";
-/usb-otg          auto    /dev/block/sda1             /dev/block/sda        flags=display="USB-OTG";storage;wipeingui;removable
+/usb-otg          auto    /dev/block/sda1             /dev/block/sda        flags=display="USB-OTG";storage;wipeingui;removable;

@@ -1,14 +1,17 @@
-#
-# Copyright (C) 2024 The Android Open Source Project
-# Copyright (C) 2024 The Gauravv Project
-#
-# SPDX-License-Identifier: Apache-2.0
-#
+#<src>		<mnt_point>	<type>	<mnt_flags and options>		<fs_mgr_flags>
+system		/system		ext4	ro,barrier=1			wait,logical,first_stage_mount
+vendor		/vendor		ext4	ro,barrier=1			wait,logical,first_stage_mount
+product		/product	ext4	ro,barrier=1			wait,logical,first_stage_mount
+system_ext	/system_ext	ext4	ro,barrier=1			wait,logical,first_stage_mount
 
-/system		ext4	/dev/block/mapper/system		flags=display="System";backup=1;wipeingui
-/vendor		ext4	/dev/block/mapper/vendor		flags=display="Vendor";wipeingui;backup=1
-/product	ext4	/dev/block/mapper/product		flags=display="Product";backup=1;;wipeingui
-/system_ext	ext4	/dev/block/mapper/system_ext		flags=display="System_EXT";backup=1;wipeingui
+/dev/block/platform/bootdevice/by-name/boot	/boot		emmc	defaults		recoveryonly
+/dev/block/platform/bootdevice/by-name/recovery	/recovery	emmc	defaults		recoveryonly
+/dev/block/platform/bootdevice/by-name/userdata	/data		f2fs	noatime,nosuid,nodev,discard,usrquota,grpquota,fsync_mode=nobarrier,reserve_root=32768,resgid=5678	wait,length=-16384
+/dev/block/platform/bootdevice/by-name/cache	/cache		ext4	defaults		recoveryonly
+/dev/block/platform/bootdevice/by-name/sec_efs	/efs		ext4	defaults		recoveryonly
+/dev/block/platform/bootdevice/by-name/misc	/misc		emmc	defaults		recoveryonly
 
-/dev/block/by-name/userdata	/data	f2fs	noatime,nosuid,nodev,discard,usrquota,grpquota,fsync_mode=nobarrier,reserve_root=32768,resgid=5678,inlinecrypt	latemount,wait,check,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,reservedsize=128M,checkpoint=fs,,quota,keydirectory=/metadata/vold/metadata_encryption
-/dev/block/by-name/metadata	/metadata	ext4	noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic,sync	wait,formattable,first_stage_mount,check
+/dev/block/platform/bootdevice/by-name/optics	/optics	ext4	default				recoveryonly
+/dev/block/platform/bootdevice/by-name/prism	/prism	ext4	default				recoveryonly
+
+/dev/block/platform/bootdevice/by-name/dtbo	/dtbo		emmc	defaults		recoveryonly

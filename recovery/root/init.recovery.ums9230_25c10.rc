@@ -11,8 +11,8 @@ on init
     mkdir /efs
     mkdir /sec_efs
 
-    chown system root /proc/cpwcn/wdtirq
-    chmod 766 /proc/cpwcn/wdtirq
+    chown system root /proc/cptl/wdtirq
+    chmod 766 /proc/cptl/wdtirq
 
 on post-fs
     # from vendor/etc/init/init.md.rc
