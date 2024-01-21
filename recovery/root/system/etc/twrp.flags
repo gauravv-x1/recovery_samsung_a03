@@ -4,20 +4,28 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-# mount point     fstype	device                          flags
-# Logical Partitons
-/product           ext4		/dev/block/mapper/product	flags=backup=1;wipeingui;display="Product"
-/product           f2fs		/dev/block/mapper/product	flags=backup=0;wipeingui;display="Product"
-/product_image     emmc		/dev/block/mapper/product	flags=backup=0;flashimg;display="Product Image"
-/system_root       f2fs		/dev/block/mapper/system	flags=backup=0;wipeingui;display="System"
-/system_root       ext4		/dev/block/mapper/system	flags=backup=1;wipeingui;display="System"
-/system_image      emmc		/dev/block/mapper/system	flags=backup=0;flashimg;display="System Image"
-/vendor            f2fs		/dev/block/mapper/vendor	flags=backup=0;wipeingui;display="Vendor"
-/vendor            ext4		/dev/block/mapper/vendor	flags=backup=1;wipeingui;display="Vendor"
-/vendor_image      emmc		/dev/block/mapper/vendor	flags=backup=0;flashimg;display="Vendor Image"
-/system_ext        f2fs		/dev/block/mapper/system	flags=backup=0;wipeingui;display="System_EXT"
-/system_ext_image  emmc		/dev/block/mapper/system	flags=backup=0;flashimg;display="System_EXT Image"
-/system_ext        ext4		/dev/block/mapper/system_ext	flags=backup=1;wipeingui;display="System_EXT"
+# mount 		point			fstype		device	device2					flags
+# Logical f2fs partitions
+system			/system			f2fs						wait,logical,first_stage_mount
+vendor			/vendor			f2fs						wait,logical,first_stage_mount
+product			/product		f2fs						wait,logical,first_stage_mount
+system_ext		/system_ext		f2fs						wait,logical,first_stage_mount
+
+# Logical ext4 partitions
+system		/system         ext4						wait,logical,first_stage_mount
+vendor		/vendor		ext4						wait,logical,first_stage_mount
+product		/product	ext4						wait,logical,first_stage_mount
+system_ext      /system_ext	ext4						wait,logical,first_stage_mount
+
+# Symlinked partitions
+/system_image		emmc		/dev/block/mapper/system		flags=backup=0;flashimg;display="System Image"
+/vendor_image		emmc		/dev/block/mapper/vendor		flags=backup=0;flashimg;display="Vendor Image"
+/product_image		emmc		/dev/block/mapper/product		flags=backup=0;flashimg;display="Product Image"
+/system_ext_image	emmc		/dev/block/mapper/system_ext		flags=backup=0;flashimg;display="System_EXT Image"
+
+# Physical partitions
+/metadata	ext4		/dev/block/by-name/metadata		flags=backup=1;wipeingui;display="Metadata"
+/data		f2fs		/dev/block/by-name/userdata		flags=length=-20480
 # Common Physical Partitions
 /boot                emmc      /dev/block/by-name/boot              flags=display=boot
 /recovery            emmc      /dev/block/by-name/recovery          flags=display=Recovery;backup=1

@@ -6,7 +6,7 @@
 #
 
 LOCAL_PATH := device/samsung/a03
-
+PRODUCT_SHIPPING_API_LEVEL := 30
 
 # Dynamic partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
