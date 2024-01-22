@@ -4,11 +4,39 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
+# mount point   	fstype              device                      device2                         flags
+# Dynamic Partitions
+/system_root           ext4		/dev/block/dm-0                                    flags=backup=1;display="System";wipeingui;
+/vendor                ext4             /dev/block/dm-2                                    flags=backup=1;display="Vendor";wipeingui;
+/system_ext            ext4             /dev/block/dm-1                                       flags=backup=1;display="System_EXT";wipeingui;
+/product               ext4             /dev/block/dm-3                                   flags=backup=1;display="Product";wipeingui;
 
-#<src>					<mnt_point>	<type>	<mnt_flags and options>	<fs_mgr_flags>
-system					/system		ext4	ro,barrier=1		avb=vbmeta_system,wait,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
-system_ext				/system_ext	ext4	ro,barrier=1		wait,logical,first_stage_mount
-vendor					/vendor		ext4	ro,barrier=1		avb,wait,logical,first_stage_mount
-product					/product	ext4	ro,barrier=1		avb,wait,logical,first_stage_mount
-/dev/block/by-name/userdata	        /data           f2fs    noatime,nosuid,nodev,discard,inlinecrypt latemount,wait,check,fileencryption=aes-256-xts:aes-256-cts:inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,quota,formattable
-/dev/block/by-name/metadata             /metadata       ext4    noatime,nosuid,nodev,discard                          wait,check,formattable
+# Symlinked partitions
+/system_image		emmc		/dev/block/dm-0		flags=backup=0;flashimg;display="System Image"
+/vendor_image		emmc		/dev/block/dm-2		flags=backup=0;flashimg;display="Vendor Image"
+/product_image		emmc		/dev/block/dm-3		flags=backup=0;flashimg;display="Product Image"
+/system_ext_image	emmc		/dev/block/dm-1		flags=backup=0;flashimg;display="System_EXT Image"
+
+# Physical partitions
+/metadata	ext4		/dev/block/by-name/metadata		flags=backup=1;wipeingui;display="Metadata"
+/data		f2fs		/dev/block/by-name/userdata		flags=length=-20480
+# Common Physical Partitions
+/boot                emmc      /dev/block/by-name/boot              flags=display=boot
+/recovery            emmc      /dev/block/by-name/recovery          flags=display=Recovery;backup=1
+/persist             emmc      /dev/block/by-name/persist           flags=display=persist
+/metadata            ext4      /dev/block/by-name/metadata          flags=display=metadata
+/socko               ext4      /dev/block/by-name/socko             flags=display=socko
+/odmko               ext4      /dev/block/by-name/odmko             flags=display=odmko
+/cache               ext4      /dev/block/by-name/cache             flags=display=cache
+/vbmeta              emmc      /dev/block/by-name/vbmeta            flags=display=vbmeta
+/vbmeta_system       emmc      /dev/block/by-name/vbmeta_system     flags=display=vbmeta_system
+/vbmeta_vendor       emmc      /dev/block/by-name/vbmeta_vendor     flags=display=vbmeta_vendor
+/dtbo                emmc      /dev/block/by-name/dtbo              flags=display=dtbo
+/efs                 ext4      /dev/block/by-name/sec_efs           flags=display=efs
+/sec_efs             ext4      /dev/block/by-name/sec_efs           flags=display=sec_efs
+/prism               ext4      /dev/block/by-name/prism             flags=display=prism
+/optics              ext4      /dev/block/by-name/optics            flags=display=optics
+
+# Removable storage
+/external_sd      auto    /dev/block/mmcblk1p1        /dev/block/mmcblk1    flags=storage;wipeingui;removable;display="External SDcard";
+/usb-otg          auto    /dev/block/sda1             /dev/block/sda        flags=display="USB-OTG";storage;wipeingui;removable

@@ -6,10 +6,10 @@
 #
 # mount point   	fstype              device                      device2                         flags
 # Dynamic Partitions
-/system                ext4		/dev/block/dm-0                                    flags=backup=1;display="System";wipeingui
-/vendor                ext4             /dev/block/dm-2                                    flags=backup=1;display="Vendor";wipeingui
-/system_ext            ext4             /dev/block/dm-1                                       flags=backup=1;display="System_EXT";wipeingui
-/product               ext4             /dev/block/dm-3                                   flags=backup=1;display="Product";wipeingui
+/system_root           ext4		/dev/block/dm-0                                    flags=backup=1;display="System";wipeingui;
+/vendor                ext4             /dev/block/dm-2                                    flags=backup=1;display="Vendor";wipeingui;
+/system_ext            ext4             /dev/block/dm-1                                       flags=backup=1;display="System_EXT";wipeingui;
+/product               ext4             /dev/block/dm-3                                   flags=backup=1;display="Product";wipeingui;
 
 # Symlinked partitions
 /system_image		emmc		/dev/block/dm-0		flags=backup=0;flashimg;display="System Image"
