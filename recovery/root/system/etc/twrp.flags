@@ -4,24 +4,18 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-# mount 		point			fstype		device	device2					flags
-# Logical f2fs partitions
-system			/system			f2fs						wait,logical,first_stage_mount
-vendor			/vendor			f2fs						wait,logical,first_stage_mount
-product			/product		f2fs						wait,logical,first_stage_mount
-system_ext		/system_ext		f2fs						wait,logical,first_stage_mount
-
-# Logical ext4 partitions
-system		/system         ext4						wait,logical,first_stage_mount
-vendor		/vendor		ext4						wait,logical,first_stage_mount
-product		/product	ext4						wait,logical,first_stage_mount
-system_ext      /system_ext	ext4						wait,logical,first_stage_mount
+# mount point   	fstype              device                      device2                         flags
+# Dynamic Partitions
+/system                ext4		/dev/block/dm-0                                    flags=backup=1;display="System";wipeingui
+/vendor                ext4             /dev/block/dm-2                                    flags=backup=1;display="Vendor";wipeingui
+/system_ext            ext4             /dev/block/dm-1                                       flags=backup=1;display="System_EXT";wipeingui
+/product               ext4             /dev/block/dm-3                                   flags=backup=1;display="Product";wipeingui
 
 # Symlinked partitions
-/system_image		emmc		/dev/block/mapper/system		flags=backup=0;flashimg;display="System Image"
-/vendor_image		emmc		/dev/block/mapper/vendor		flags=backup=0;flashimg;display="Vendor Image"
-/product_image		emmc		/dev/block/mapper/product		flags=backup=0;flashimg;display="Product Image"
-/system_ext_image	emmc		/dev/block/mapper/system_ext		flags=backup=0;flashimg;display="System_EXT Image"
+/system_image		emmc		/dev/block/dm-0		flags=backup=0;flashimg;display="System Image"
+/vendor_image		emmc		/dev/block/dm-2		flags=backup=0;flashimg;display="Vendor Image"
+/product_image		emmc		/dev/block/dm-3		flags=backup=0;flashimg;display="Product Image"
+/system_ext_image	emmc		/dev/block/dm-1		flags=backup=0;flashimg;display="System_EXT Image"
 
 # Physical partitions
 /metadata	ext4		/dev/block/by-name/metadata		flags=backup=1;wipeingui;display="Metadata"

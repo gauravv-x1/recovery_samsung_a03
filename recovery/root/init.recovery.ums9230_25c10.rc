@@ -51,9 +51,12 @@ on early-fs
     start vold
 
 on fs
-    wait /dev/block/platform/soc/soc:ap-apb/201d0000.sdio
-    symlink /dev/block/platform/soc/soc:ap-apb/201d0000.sdio /dev/block/bootdevice
-    symlink /dev/block/platform/soc/soc:ap-apb/201d0000.sdio /dev/block/by-name
+    # Force ANDROID_ROOT to /system_root
+    export ANDROID_ROOT /system_root
+
+    # Symlink bootdevice
+    wait /dev/block/platform/${ro.boot.boot_devices}
+    symlink /dev/block/platform/${ro.boot.boot_devices} /dev/block/bootdevice
 
 on late-fs
     # Wait for keymaster
@@ -63,12 +66,10 @@ on late-fs
     mount_all /vendor/etc/fstab.${ro.boot.hardware.platform} --late
 
 #@RECOVERY [For reboot reason.
-    symlink /dev/block/platform/soc/soc:ap-apb/201d0000.sdio/by-name/param /dev/block/param
+    symlink /dev/block/platform/${ro.boot.boot_devices} /dev/block/param
     chown root system /dev/block/param
     chmod 0666 /dev/block/param
 #]
-
-    export ANDROID_ROOT /system_root
 
 # Set watchdog timer to 30 seconds and fed it every 10 seconds to get a 20 second margin
 service watchdogd /system/bin/watchdogd 10 20
