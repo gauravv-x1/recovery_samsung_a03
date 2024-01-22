@@ -15,10 +15,6 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 # Inherit from a03 device
 $(call inherit-product, device/samsung/a03/device.mk)
 
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images
-
 PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(DEVICE_PATH)/recovery/root,recovery/root)
 
 PRODUCT_DEVICE := a03
