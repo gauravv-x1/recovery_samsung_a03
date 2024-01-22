@@ -1,9 +1,9 @@
 # mount point   fstype              device                      device2                         flags
 # Dynamic Partitions
-/system                ext4                /dev/block/mapper/system                                    wait,logical,first_stage_mount,flags=backup=1;display="System";
-/vendor                ext4                /dev/block/mapper/vendor                                    wait,logical,first_stage_mount,flags=backup=1;display="Vendor";
-/system_ext            ext4                /dev/block/mapper/system_ext                                       wait,logical,first_stage_mount,flags=backup=1;display="System_EXT";
-/product               ext4                /dev/block/mapper/product                                   wait,logical,first_stage_mount,flags=backup=1;display="Product";
+/system                ext4                /dev/block/mapper/system                                    flags=backup=1;display="System";wipeingui;
+/vendor                ext4                /dev/block/mapper/vendor                                    flags=backup=1;display="Vendor";wipeingui;
+/system_ext            ext4                /dev/block/mapper/system_ext                                       flags=backup=1;display="System_EXT";wipeingui;
+/product               ext4                /dev/block/mapper/product                                   flags=backup=1;display="Product";wipeingui;
 
 /system_image          emmc                /dev/block/mapper/system                                    flags=backup=1;display="System Image";flashimg=1;wipeingui;
 /vendor_image          emmc                /dev/block/mapper/vendor                                    flags=backup=1;display="Vendor Image";flashimg=1;wipeingui;
