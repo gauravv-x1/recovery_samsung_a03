@@ -1,14 +1,14 @@
 # mount point   fstype              device                      device2                         flags
 # Dynamic Partitions
-/system                ext4                /dev/block/mapper/system                                    wait,logical,first_stage_mount,flags=backup=1;display="System";
-/vendor                ext4                /dev/block/mapper/vendor                                    wait,logical,first_stage_mount,flags=backup=1;display="Vendor";
-/system_ext            ext4                /dev/block/mapper/system_ext                                       wait,logical,first_stage_mount,flags=backup=1;display="System_EXT";
-/product               ext4                /dev/block/mapper/product                                   wait,logical,first_stage_mount,flags=backup=1;display="Product";
+/system                ext4                /dev/block/mapper/system                                    wait,logical,first_stage_mount
+/vendor                ext4                /dev/block/mapper/vendor                                    wait,logical,first_stage_mount
+/system_ext            ext4                /dev/block/mapper/system_ext                                       wait,logical,first_stage_mount
+/product               ext4                /dev/block/mapper/product                                   wait,logical,first_stage_mount
 
-/system_image          emmc                /dev/block/mapper/system                                    flags=backup=1;display="System Image";flashimg=1;wipeingui;
-/vendor_image          emmc                /dev/block/mapper/vendor                                    flags=backup=1;display="Vendor Image";flashimg=1;wipeingui;
-/system_ext_image      emmc                /dev/block/mapper/system_ext                                       flags=backup=1;display="System_EXT Image";flashimg=1;wipeingui;
-/product_image         emmc                /dev/block/mapper/product                                   flags=backup=1;display="Product Image";flashimg=1;wipeingui;
+/system_image          emmc                /dev/block/mapper/system                                    flags=backup=1;display="System Image";flashimg;
+/vendor_image          emmc                /dev/block/mapper/vendor                                    flags=backup=1;display="Vendor Image";flashimg;
+/system_ext_image      emmc                /dev/block/mapper/system_ext                                       flags=backup=1;display="System_EXT Image";flashimg;
+/product_image         emmc                /dev/block/mapper/product                                   flags=backup=1;display="Product Image";flashimg;
 
 # Physical partitions
 /metadata       ext4                /dev/block/by-name/metadata               flags=backup=1;display=Metadata;
